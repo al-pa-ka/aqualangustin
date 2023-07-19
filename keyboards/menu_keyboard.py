@@ -9,6 +9,8 @@ menu_inline = (
     .add(Text("Отзывы"))
     .row()
     .add(Text("Задать вопрос"))
+    .row()
+    .add(Text("Часто задаваемые вопросы"))
     #.add(Text("Прочее"))
 ).get_json()
 
@@ -66,3 +68,11 @@ two_point_and_cancel = (
     .add(Text("Отмена"), KeyboardButtonColor.NEGATIVE)
 )
 
+one_point_or_cancel = (
+    Keyboard(
+        inline=False,
+        one_time=True
+    )
+    .add(Text("1"))
+    .add(Text("Отмена"), KeyboardButtonColor.NEGATIVE)
+)

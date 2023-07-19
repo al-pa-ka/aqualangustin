@@ -1,9 +1,11 @@
 from config import labeler
 from vkbottle.bot import Message
 from messages.menu import menu_text
+from messages.popular_questions import popular_questions_text
 from keyboards.menu_keyboard import (
                                         menu_button, menu_inline, 
-                                        cancel_button, two_point_and_cancel 
+                                        cancel_button, two_point_and_cancel, 
+                                        one_point_or_cancel
                                     )
 
 from models.models import User, Order
@@ -60,3 +62,9 @@ async def to_ask_question(message: Message):
 async def other(message: Message):
     pass
 
+@labeler.message(StateChecker(BaseState.BASE_STATE), text="Часто задаваемые вопросы")
+async def popular_questions(message: Message):
+    user = User.get(vk_id=message.from_id)
+    user.state = QuestionStates.POPULAR_QUESTION_STATE
+    await message.answer(popular_questions_text, keyboard=one_point_or_cancel)
+    user.save()
